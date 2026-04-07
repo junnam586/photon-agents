@@ -15,20 +15,20 @@ Bounce ideas off it, log updates, track priorities, maintain streaks, and most i
 **Example conversation:**
 ```
 You:    gm
-Pulse:  Morning. Day 12 streak. Your priorities are 
+shipit:  Morning. Day 12 streak. Your priorities are 
         MVP launch and user interviews. You haven't 
         mentioned interviews in 4 days. What's the 
         plan today?
 
 You:    talked to 3 potential users about the contractor 
         marketplace idea. 2 said they'd pay for it
-Pulse:  That's real signal — 2 out of 3 willing to pay 
+shipit:  That's real signal — 2 out of 3 willing to pay 
         is strong. This connects directly to your MVP 
         priority. What's the next step to turn those 
         conversations into commits?
 
 You:    how am I doing
-Pulse:  Honest take: you've been consistent this week, 
+shipit:  Honest take: you've been consistent this week, 
         mostly focused on user research which is good. 
         But you've logged zero dev work in 6 days. If 
         the MVP is still priority #1, something needs 
@@ -103,7 +103,7 @@ Each agent is a single TypeScript file running locally on your Mac. Photon watch
 
 **Install:**
 ```bash
-git clone https://github.com/YOUR_USERNAME/photon-agents.git
+git clone https://github.com/junnam586/photon-agents.git
 cd photon-agents
 bun install
 ```
@@ -116,11 +116,11 @@ cp .env.example .env
 
 **Run:**
 ```bash
-# Start Founder Pulse
-bun run founder-pulse
+# Start shipit
+bun run shipit
 
-# Start Iron Log  
-bun run iron-log
+# Start spotter  
+bun run spotter
 ```
 
 Then just text yourself (or the number running the agent).
@@ -135,9 +135,9 @@ imessage-agents/
 │   ├── config.ts       ← env vars + validation
 │   ├── claude.ts       ← Claude API wrapper (shared)
 │   └── store.ts        ← JSON persistence (shared)
-├── founder-pulse/
+├── shipit/
 │   └── index.ts        ← agent logic + system prompt
-├── iron-log/
+├── spotter/
 │   └── index.ts        ← agent logic + system prompt
 ├── package.json
 ├── .env.example
