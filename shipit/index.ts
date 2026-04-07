@@ -1,17 +1,5 @@
 #!/usr/bin/env bun
-// ============================================
-// FOUNDER PULSE
-// "A cofounder in your texts that remembers
-//  everything and lets nothing slide."
-//
-// Commands:
-//   "gm" / "good morning"  → daily check-in, get priorities
-//   any update text         → logged + categorized
-//   "how am i doing"        → progress reflection
-//   "priorities"            → see current priorities
-//   "set priority: ___"     → set a new priority
-//   "clear priorities"      → reset priorities
-// ============================================
+// shipit — accountability agent for builders
 
 import { IMessageSDK } from "@photon-ai/imessage-kit";
 import { askClaude } from "../shared/claude.ts";
@@ -203,11 +191,7 @@ async function handleMessage(text: string, sender: string): Promise<string> {
 
 // --- Start the agent ---
 
-console.log("\n╔═══════════════════════════════════════════╗");
-console.log("║   🚀 Founder Pulse — Active               ║");
-console.log("║   Text me to check in.                    ║");
-console.log("║   Press Ctrl+C to stop.                   ║");
-console.log("╚═══════════════════════════════════════════╝\n");
+console.log("shipit is running. text me.");
 
 const sdk = new IMessageSDK({ debug: false });
 
@@ -222,25 +206,25 @@ await sdk.startWatching({
     // Optional: filter to only your number
     // if (senderNumber !== CONFIG.MY_NUMBER) return;
 
-    console.log(`📩 [${new Date().toLocaleTimeString()}] ${msg.text}`);
+    console.log(`[${new Date().toLocaleTimeString()}] ${msg.text}`);
 
     try {
       const reply = await handleMessage(msg.text, senderNumber);
       await sdk.send(senderNumber, reply);
-      console.log(`💬 [${new Date().toLocaleTimeString()}] Replied`);
+      console.log(`[${new Date().toLocaleTimeString()}] replied`);
     } catch (error) {
-      console.error("❌ Error handling message:", error);
+      console.error("error:", error);
       await sdk.send(senderNumber, "Something broke on my end. Try again?");
     }
   },
   onError: (error) => {
-    console.error("❌ Watcher error:", error);
+    console.error("watcher error:", error);
   },
 });
 
 // Graceful shutdown
 process.on("SIGINT", async () => {
-  console.log("\n🛑 Shutting down Founder Pulse...");
+  console.log("shutting down.");
   sdk.stopWatching();
   await sdk.close();
   process.exit(0);

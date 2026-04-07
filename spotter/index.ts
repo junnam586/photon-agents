@@ -1,19 +1,5 @@
 #!/usr/bin/env bun
-// ============================================
-// IRON LOG
-// "A gym buddy that tracks every rep and
-//  calls you out when you skip leg day."
-//
-// Commands:
-//   any workout text       → parsed + logged (e.g. "bench 185x5x3")
-//   "today" / "what's today" → get your workout plan
-//   "week" / "how's my week" → weekly summary
-//   "pr" / "prs"            → see personal records
-//   "history [exercise]"    → see history for an exercise
-//   "streak"                → check your gym streak
-//   "split"                 → see/set your training split
-//   "set split: ___"        → define your split
-// ============================================
+// spotter — gym + nutrition tracking agent
 
 import { IMessageSDK } from "@photon-ai/imessage-kit";
 import { askClaude } from "../shared/claude.ts";
@@ -262,11 +248,7 @@ Existing PRs: ${JSON.stringify(state.personalRecords)}`,
 
 // --- Start the agent ---
 
-console.log("\n╔═══════════════════════════════════════════╗");
-console.log("║   🏋️ Iron Log — Active                    ║");
-console.log("║   Text me your lifts.                     ║");
-console.log("║   Press Ctrl+C to stop.                   ║");
-console.log("╚═══════════════════════════════════════════╝\n");
+console.log("spotter is running. text me.");
 
 const sdk = new IMessageSDK({ debug: false });
 
@@ -280,25 +262,25 @@ await sdk.startWatching({
     // Optional: filter to only your number
     // if (senderNumber !== CONFIG.MY_NUMBER) return;
 
-    console.log(`📩 [${new Date().toLocaleTimeString()}] ${msg.text}`);
+    console.log(`[${new Date().toLocaleTimeString()}] ${msg.text}`);
 
     try {
       const reply = await handleMessage(msg.text);
       await sdk.send(senderNumber, reply);
-      console.log(`💬 [${new Date().toLocaleTimeString()}] Replied`);
+      console.log(`[${new Date().toLocaleTimeString()}] replied`);
     } catch (error) {
-      console.error("❌ Error handling message:", error);
+      console.error("error:", error);
       await sdk.send(senderNumber, "Something glitched. Try again?");
     }
   },
   onError: (error) => {
-    console.error("❌ Watcher error:", error);
+    console.error("watcher error:", error);
   },
 });
 
 // Graceful shutdown
 process.on("SIGINT", async () => {
-  console.log("\n🛑 Shutting down Iron Log...");
+  console.log("shutting down.");
   sdk.stopWatching();
   await sdk.close();
   process.exit(0);
