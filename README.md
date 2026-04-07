@@ -1,23 +1,21 @@
-# iMessage Agents
+# Photon Agents
 
 Two AI-powered iMessage agents built with [Photon iMessage Kit](https://github.com/photon-hq/imessage-kit) and Claude.
-
-No UI. No app. Just text.
 
 ---
 
 ## The Agents
 
-### 🚀 Founder Pulse
+### shipit
 
-**A cofounder in your texts that remembers everything and lets nothing slide.**
+**A cofounder in your texts that remembers everything.**
 
-Text it what you're working on. It logs your updates, tracks your priorities, maintains your streak, and nudges you when you go quiet. Ask "how am I doing" and it reflects back your patterns — what you're shipping vs what you're avoiding.
+Bounce ideas off it, log updates, track priorities, maintain streaks, and most importantly, be held accountable. The more data you give it, the better it becomes. It reflects back your patterns, what you're shipping, and what you're avoiding.
 
 **Example conversation:**
 ```
 You:    gm
-Pulse:  Morning. Day 12 streak 🔥 Your priorities are 
+Pulse:  Morning. Day 12 streak. Your priorities are 
         MVP launch and user interviews. You haven't 
         mentioned interviews in 4 days. What's the 
         plan today?
@@ -38,7 +36,7 @@ Pulse:  Honest take: you've been consistent this week,
 ```
 
 **Commands:**
-- `gm` — daily check-in, get priorities + nudge
+- `gm` - daily check-in, get priorities + nudge
 - Any text — gets logged and connected to your goals
 - `how am I doing` — honest progress reflection
 - `set priority: [goal]` — add a priority
@@ -47,37 +45,40 @@ Pulse:  Honest take: you've been consistent this week,
 
 ---
 
-### 🏋️ Iron Log
+### spotter
 
-**A gym buddy that tracks every rep and calls you out when you skip leg day.**
+**A gym buddy that tracks every rep and helps you with your diet.**
 
-Text your workout in plain english mid-set. It parses exercises, tracks PRs, notices trends, and tells you what to hit today based on your split. No app to open between sets — just text.
+Text your workout in plain english. It'll track PRs, tell you optimal exercises (or even substitutes based on your equipment), notice trends, and help you with your nutrition. Text it what you ate, and it'll give you a full macro breakdown, alongside suggestions, substitutes, and real advice.
 
 **Example conversation:**
 ```
 You:    bench 185x5x3, incline db 60x10x3, cable flies 40x12x3
-Iron:   Logged. Bench 185x5x3, incline DB 60s for 
+spotter:   Logged. Bench 185x5x3, incline DB 60s for 
         10x3, cable flies 40x12x3. Solid push day. 
-        That bench is moving — 185 is a new PR 🔥
+        That bench is moving - 185 is a new PR 
 
-You:    what should I hit today
-Iron:   It's Wednesday and you did push Monday, pull 
-        Tuesday. Legs are up. You haven't squatted in 
-        9 days. Time to fix that.
+You:    i only have dumbbells today
+spotter:   No problem. You can do bulgarian split squats,
+        dumbbell RDLs, goblet squats, and walking lunges.
+        Want the full workout?
 
-You:    how's my week
-Iron:   3 sessions so far this week — push, pull, and 
-        arms. No legs yet and it's already Wednesday. 
-        You know what needs to happen.
+You:    had chipotle bowl with chicken, rice, beans, guac
+spotter:   Roughly 815 cal — 52g protein, 74g carbs, 
+         34g fat. You're at 118g protein today, need 
+         about 50 more to hit your goal. Maybe a double scoop
+         shake before bed.
 ```
 
 **Commands:**
-- Any workout text — parsed and logged (e.g. `squat 225 3x5`)
-- `today` — what to train based on your split
-- `week` — weekly summary
-- `pr` / `prs` — see personal records
-- `streak` — check gym streak
-- `set split: [your split]` — define training split
+- Any workout text — parsed and logged (e.g. squat 225 3x5)
+- Any food text — macros estimated and tracked
+- today — what to train based on your split
+- week — weekly workout + nutrition summary
+- pr / prs — see personal records
+- macros — today's macro breakdown
+- set goal: [calories/protein/etc] — set nutrition targets
+- set split: [your split] — define training split
 
 ---
 
@@ -89,8 +90,6 @@ with your stored context → Photon sends reply → appears in iMessage
 ```
 
 Each agent is a single TypeScript file running locally on your Mac. Photon watches your iMessage database for new messages, sends them to Claude's API with your full history as context, and replies through iMessage. State persists in a local JSON file.
-
-The agents share an identical skeleton — the only difference is the system prompt (personality + rules) and the shape of stored state (workouts vs priorities). Everything else is reused.
 
 ---
 
@@ -124,7 +123,7 @@ bun run founder-pulse
 bun run iron-log
 ```
 
-Then just text yourself (or the number running the agent). That's it.
+Then just text yourself (or the number running the agent).
 
 ---
 
@@ -145,15 +144,11 @@ imessage-agents/
 └── README.md
 ```
 
-The shared layer (`config`, `claude`, `store`) is identical for both agents. To build a new agent, you copy one `index.ts`, change the system prompt, and define a new state shape. Everything else stays the same.
-
 ---
 
 ## Why iMessage?
 
-Nobody wants to open another app. But everyone texts.
-
-These agents work because they meet you where you already are — in a conversation. You text your gym buddy between sets, not open a tracking app. You check in with a cofounder over text, not fill out a form. The best personal tools disappear into your existing habits.
+It feels like having someone to actually communicate with. All you need to do is text and communicate like you would a friend, and you receive real, honest advice rather than an app that only tells you the "objective" truth. You need a tool that actually sounds like something you'd listen to.
 
 ---
 
