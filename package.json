@@ -1,0 +1,19 @@
+{
+  "name": "photon-agents",
+  "version": "1.0.0",
+  "description": "Two iMessage-native AI agents built with Photon iMessage Kit + Claude",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "founder-pulse": "bun run founder-pulse/index.ts",
+    "iron-log": "bun run iron-log/index.ts"
+  },
+  "dependencies": {
+    "@photon-ai/imessage-kit": "^2.1.2",
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  }
+}
